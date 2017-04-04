@@ -16,20 +16,23 @@ def getPage(url):
 # scraper website: heise.de
 def main():
 
-    d = {} # Wörterbuch anlegen für spätere Textanalyse
+    d = {}   # create a dictionary
 
     for page in range(1,3,1):
 
-        heise_https_url = "https://www.heise.de/thema/https"     # all https topics
+        # all https topics
+        heise_https_url = "https://www.heise.de/thema/https"
 
         # https topics
         content = getPage(heise_https_url).find("div", {"class":"keywordliste"})
         content = content.findAll("header")
 
+        # split wordlist into words
         for line in content:
             linetxt = line.text.encode('utf-8')
             wordlist = linetxt.split()
 
+            # store all words with appearances in dictionary
             for word in wordlist:
                 if not d.has_key(word):
                     d[word] = 1
@@ -38,10 +41,9 @@ def main():
 
     print("\nDONE !\n\n\nTopic https on heise.de was scraped completely.\n")
 
-    # Top 3 Wörter im Wörterbuch ausgeben...
+    # print top 3 words of dictionary
     sorted(d.items(), key=itemgetter(1), reverse=True)
     print(map(itemgetter(0), sorted(d.items(), key=itemgetter(1), reverse=True))[:3])
-
 
 
 # main program
