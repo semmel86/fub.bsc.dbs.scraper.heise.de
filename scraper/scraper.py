@@ -18,10 +18,10 @@ def main():
 
     d = {}   # create a dictionary
 
-    for page in range(1,3,1):
+    for page in range(1,5,1):
 
         # all https topics
-        heise_https_url = "https://www.heise.de/thema/https"
+        heise_https_url = "https://www.heise.de/thema/https?seite=" + str(page)
 
         # https topics
         content = getPage(heise_https_url).find("div", {"class":"keywordliste"})
@@ -39,11 +39,11 @@ def main():
                 if d.has_key(word):
                     d[word] = d[word]+1
 
-    print("\nDONE !\n\n\nTopic https on heise.de was scraped completely.\n")
+    print("\nDONE !\n\nTopic https on heise.de was scraped completely.\n")
 
     # print top 3 words of dictionary
     sorted(d.items(), key=itemgetter(1), reverse=True)
-    print(map(itemgetter(0), sorted(d.items(), key=itemgetter(1), reverse=True))[:3])
+    print(map(itemgetter(0), sorted(d.items(), key=itemgetter(1), reverse=True))[9])
 
 
 # main program
